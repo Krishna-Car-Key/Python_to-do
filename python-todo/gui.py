@@ -14,8 +14,10 @@ list_box = sg.Listbox(functions.return_todos(),
                       size=(45, 10), key='todos')
 edit_button = sg.Button("Edit")
 complete_button = sg.Button("Complete")
+exit_button = sg.Button("Exit")
 
-layout = [[user_input_title], [user_input_box, add_box], [list_box, edit_button,complete_button]]
+layout = [[user_input_title], [user_input_box, add_box], [list_box, edit_button, complete_button],
+          [exit_button]]
 
 window = sg.Window('My To-Do Lists',
                    layout=layout,
@@ -52,6 +54,9 @@ while True:
             value['todo'] = value['todos'][0]
             print(value['todo'])
             window['todo'].update(value['todo'])
+
+        case 'Exit':
+            break
 
         case sg.WIN_CLOSED:
             break
