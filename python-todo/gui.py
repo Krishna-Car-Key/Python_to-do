@@ -1,11 +1,14 @@
 import PySimpleGUI as sg
 from modules import functions
+import time
+
 
 sg.theme("Black")
-
-user_input_title = sg.Text("To-Do Box ")
+clock = sg.Text(key='clock')
+user_input_title = sg.Text("To-Do Box")
 user_input_box = sg.Input(tooltip="Enter todo", key='todo')
-add_box = sg.Button("Add")
+add_box = sg.Button(image_source='004 add.png', tooltip='Add todo', key='Add',
+                    mouseover_colors="LightBlue2",size=4)
 
 # in Listbox we can use the value to store the list-
 # -like Listbox(value=functions.return_todos())
@@ -15,10 +18,11 @@ list_box = sg.Listbox(functions.return_todos(),
                       enable_events=True,
                       size=(45, 10), key='todos')
 edit_button = sg.Button("Edit")
-complete_button = sg.Button("Complete")
+complete_button = sg.Button(image_source="004 complete.png", key="Complete",mouseover_colors="LightBlue2",
+                            size=4, tooltip="Complete todo")
 exit_button = sg.Button("Exit")
 
-layout = [[user_input_title], [user_input_box, add_box], [list_box, edit_button, complete_button],
+layout = [[clock], [user_input_title], [user_input_box, add_box], [list_box, edit_button, complete_button],
           [exit_button]]
 
 window = sg.Window('My To-Do Lists',
@@ -26,7 +30,8 @@ window = sg.Window('My To-Do Lists',
                    font=('Helvetica', 16))
 
 while True:
-    event, value = window.read()
+    event, value = window.read(timeout=600)
+    window['clock'].update(time.strftime("%b %d, %Y %H:%M:%S"))
     print(event, value)
     match event:
         case 'Add':
