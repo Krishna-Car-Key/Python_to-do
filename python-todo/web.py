@@ -25,8 +25,3 @@ for index, todo in enumerate(todos):
         del st.session_state[todo]
         st.experimental_rerun()
 
-# var = st.button(label= "Hello")
-# var2 = st.button(label="Hero")
-# st.sidebar(var, var2)
-
-st.session_state
