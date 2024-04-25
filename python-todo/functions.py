@@ -1,7 +1,7 @@
 def return_todos(filename="python-todo/todos.txt"):
     with open(filename, "r") as local_Users_file:
         local_Users_list = local_Users_file.readlines()
-    return local_Users_list
+        return local_Users_list
 
 
 def write_todos(local_users_list, filename="python-todo/todos.txt"):
