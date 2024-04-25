@@ -5,15 +5,15 @@ import os
 
 
 if not os.path.exists("todos.txt"):
-    with open('todos.txt','w') as file:
+    with open('todos.txt', 'w') as file:
         pass
 
 sg.theme("Black")
 clock = sg.Text(key='clock')
 user_input_title = sg.Text("To-Do Box")
 user_input_box = sg.Input(tooltip="Enter todo", key='todo')
-add_box = sg.Button(image_source='004 add.png', tooltip='Add todo', key='Add',
-                    mouseover_colors="LightBlue2",size=4)
+add_box = sg.Button('Add', tooltip='Add todo',
+                    size=4)
 
 # in Listbox we can use the value to store the list-
 # -like Listbox(value=functions.return_todos())
@@ -23,8 +23,7 @@ list_box = sg.Listbox(functions.return_todos(),
                       enable_events=True,
                       size=(45, 10), key='todos')
 edit_button = sg.Button("Edit")
-complete_button = sg.Button(image_source="004 complete.png", key="Complete",mouseover_colors="LightBlue2",
-                            size=4, tooltip="Complete todo")
+complete_button = sg.Button('Complete', tooltip="Complete todo")
 exit_button = sg.Button("Exit")
 
 layout = [[clock], [user_input_title], [user_input_box, add_box], [list_box, edit_button, complete_button],
@@ -35,9 +34,8 @@ window = sg.Window('My To-Do Lists',
                    font=('Helvetica', 16))
 
 while True:
-    event, value = window.read(timeout=600)
+    event, value = window.read(timeout=200)
     window['clock'].update(time.strftime("%b %d, %Y %H:%M:%S"))
-    print(event, value)
     match event:
         case 'Add':
             todos = functions.return_todos()
@@ -49,7 +47,6 @@ while True:
             window['todos'].update(todos)
         case 'Edit':
             try:
-                # print(value['todos'])
                 todos = functions.return_todos()
                 index = todos.index(value['todos'][0])
                 todos[index] = value['todo'] + '\n'
@@ -73,7 +70,6 @@ while True:
 
         case 'todos':
             value['todo'] = value['todos'][0]
-            # print(value['todo'])
             window['todo'].update(value['todo'])
 
         case 'Exit':
