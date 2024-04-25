@@ -14,20 +14,19 @@ def add_todo():
     functions.write_todos(todos)
 
 
-def remove_todo():
-    todo_to_remove = st.session_state["to_remove"]
-    todos.remove(todo_to_remove)
-    functions.write_todos(todos)
-
+st.text_input(label='', placeholder="Add a todo...",
+              key="new_todo", on_change=add_todo)
 
 for index, todo in enumerate(todos):
-    st.checkbox(todo, key=todo)
-#     if True:
-#         todos.remove(todo)
-#         functions.write_todos(todos)
+    checkbox = st.checkbox(todo, key=todo)
+    if checkbox:
+        todos.pop(index)
+        functions.write_todos(todos)
+        del st.session_state[todo]
+        st.experimental_rerun()
 
 # var = st.button(label= "Hello")
 # var2 = st.button(label="Hero")
 # st.sidebar(var, var2)
-st.text_input(label='', placeholder="Add a todo...",
-              key="new_todo", on_change=add_todo)
+
+st.session_state
